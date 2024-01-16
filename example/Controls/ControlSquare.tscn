@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bsfcxexqvvef3"]
+
+[node name="ControlSquare" type="ColorRect"]
+custom_minimum_size = Vector2(8, 8)

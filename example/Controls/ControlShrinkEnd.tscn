@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://be0ujgt3jn6j"]
+
+[node name="ControlShrinkEnd" type="ColorRect"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+offset_right = 16.0
+offset_bottom = 8.0
+size_flags_horizontal = 8
+size_flags_vertical = 8

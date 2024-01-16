@@ -1,0 +1,289 @@
+[gd_scene load_steps=13 format=3 uid="uid://bjxq3dvclqfvv"]
+
+[ext_resource type="Script" path="res://example/ExampleScene.cs" id="1_s8if2"]
+[ext_resource type="Script" path="res://addons/BoxAspectContainer/BoxAspectContainer.cs" id="1_sqube"]
+[ext_resource type="LabelSettings" uid="uid://l88vwkh2qkfa" path="res://example/LabelSettings.tres" id="2_dj0v7"]
+[ext_resource type="PackedScene" uid="uid://bsfcxexqvvef3" path="res://example/Controls/ControlSquare.tscn" id="2_nywc6"]
+[ext_resource type="PackedScene" uid="uid://dwgw4oesxklh5" path="res://example/Controls/ControlTall.tscn" id="3_62cgn"]
+[ext_resource type="PackedScene" uid="uid://bvs8d8aocuj0y" path="res://example/Controls/ControlWide.tscn" id="5_r5gwn"]
+[ext_resource type="PackedScene" uid="uid://bdxskjffknxob" path="res://example/Controls/ControlShrinkBegin.tscn" id="7_h26qy"]
+[ext_resource type="PackedScene" uid="uid://cx7fj2rb5f12e" path="res://example/Controls/ControlShrinkCenter.tscn" id="8_yettr"]
+[ext_resource type="PackedScene" uid="uid://be0ujgt3jn6j" path="res://example/Controls/ControlShrinkEnd.tscn" id="9_rfxbu"]
+[ext_resource type="PackedScene" uid="uid://bq77ha67atljm" path="res://example/Controls/ControlExpandFill.tscn" id="9_yaeph"]
+[ext_resource type="PackedScene" uid="uid://rykubll7uvvf" path="res://example/Controls/ControlExpandXFillY.tscn" id="10_rsrm4"]
+[ext_resource type="PackedScene" uid="uid://dvctjwy36lq25" path="res://example/Controls/ControlExpandYFillX.tscn" id="12_6d65i"]
+
+[node name="ExampleScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s8if2")
+
+[node name="ExamplesHorizontal" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="HorizontalLabel" type="Label" parent="ExamplesHorizontal"]
+layout_mode = 1
+offset_right = 106.0
+offset_bottom = 23.0
+text = "Horizontal"
+label_settings = ExtResource("2_dj0v7")
+vertical_alignment = 2
+justification_flags = 0
+
+[node name="ExamplesBoxContainerHorizontal" type="Control" parent="ExamplesHorizontal"]
+layout_mode = 1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 32.0
+grow_vertical = 2
+
+[node name="BoxContainerLabel" type="Label" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal"]
+layout_mode = 1
+offset_right = 106.0
+offset_bottom = 23.0
+text = "BoxContainer"
+label_settings = ExtResource("2_dj0v7")
+vertical_alignment = 2
+justification_flags = 0
+
+[node name="BoxContainer" type="BoxContainer" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 32.0
+
+[node name="ControlSquare" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer" instance=ExtResource("2_nywc6")]
+layout_mode = 2
+
+[node name="ControlTall" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer" instance=ExtResource("3_62cgn")]
+layout_mode = 2
+
+[node name="ControlWide" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer" instance=ExtResource("5_r5gwn")]
+layout_mode = 2
+
+[node name="BoxContainer2" type="BoxContainer" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 96.0
+offset_right = -16.0
+
+[node name="ControlSquare" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("2_nywc6")]
+layout_mode = 2
+
+[node name="ControlTall" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("3_62cgn")]
+layout_mode = 2
+
+[node name="ControlWide" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("5_r5gwn")]
+layout_mode = 2
+
+[node name="ControlShrinkBegin" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("7_h26qy")]
+layout_mode = 2
+
+[node name="ControlShrinkCenter" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("8_yettr")]
+layout_mode = 2
+
+[node name="ControlShrinkEnd" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("9_rfxbu")]
+layout_mode = 2
+
+[node name="ControlExpandFill" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer2" instance=ExtResource("9_yaeph")]
+layout_mode = 2
+
+[node name="BoxContainer3" type="BoxContainer" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 160.0
+offset_right = -16.0
+
+[node name="ControlExpandXFillY" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer3" instance=ExtResource("10_rsrm4")]
+layout_mode = 2
+
+[node name="ControlExpandYFillX" parent="ExamplesHorizontal/ExamplesBoxContainerHorizontal/BoxContainer3" instance=ExtResource("12_6d65i")]
+layout_mode = 2
+
+[node name="ExamplesBoxAspectContainerHorizontal" type="Control" parent="ExamplesHorizontal"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="BoxAspectContainerLabel" type="Label" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal"]
+layout_mode = 1
+offset_right = 138.0
+offset_bottom = 23.0
+text = "BoxAspectContainer
+"
+label_settings = ExtResource("2_dj0v7")
+vertical_alignment = 2
+justification_flags = 0
+
+[node name="BoxAspectContainer" type="Container" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 64.0
+script = ExtResource("1_sqube")
+BoxContainerThemeSeparation = true
+
+[node name="ControlSquare" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer" instance=ExtResource("2_nywc6")]
+layout_mode = 2
+
+[node name="ControlTall" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer" instance=ExtResource("3_62cgn")]
+layout_mode = 2
+
+[node name="ControlWide" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer" instance=ExtResource("5_r5gwn")]
+layout_mode = 2
+
+[node name="BoxAspectContainer2" type="Container" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 96.0
+offset_right = -16.0
+offset_bottom = 128.0
+script = ExtResource("1_sqube")
+BoxContainerThemeSeparation = true
+
+[node name="ControlSquare" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("2_nywc6")]
+layout_mode = 2
+
+[node name="ControlTall" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("3_62cgn")]
+layout_mode = 2
+
+[node name="ControlWide" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("5_r5gwn")]
+layout_mode = 2
+
+[node name="ControlShrinkBegin" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("7_h26qy")]
+layout_mode = 2
+
+[node name="ControlShrinkCenter" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("8_yettr")]
+layout_mode = 2
+
+[node name="ControlShrinkEnd" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("9_rfxbu")]
+layout_mode = 2
+
+[node name="ControlExpandFill" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer2" instance=ExtResource("9_yaeph")]
+layout_mode = 2
+
+[node name="BoxAspectContainer3" type="Container" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 160.0
+offset_right = -16.0
+offset_bottom = 64.0
+script = ExtResource("1_sqube")
+BoxContainerThemeSeparation = true
+
+[node name="ControlExpandXFillY" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer3" instance=ExtResource("10_rsrm4")]
+layout_mode = 2
+
+[node name="ControlExpandYFillX" parent="ExamplesHorizontal/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer3" instance=ExtResource("12_6d65i")]
+layout_mode = 2
+
+[node name="ExamplesVertical" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="VerticalLabel" type="Label" parent="ExamplesVertical"]
+layout_mode = 1
+offset_right = 106.0
+offset_bottom = 23.0
+text = "Vertical"
+label_settings = ExtResource("2_dj0v7")
+vertical_alignment = 2
+justification_flags = 0
+
+[node name="ExamplesBoxContainerHorizontal" type="Control" parent="ExamplesVertical"]
+layout_mode = 1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 32.0
+grow_vertical = 2
+
+[node name="BoxContainerLabel" type="Label" parent="ExamplesVertical/ExamplesBoxContainerHorizontal"]
+layout_mode = 1
+offset_right = 106.0
+offset_bottom = 23.0
+text = "BoxContainer"
+label_settings = ExtResource("2_dj0v7")
+vertical_alignment = 2
+justification_flags = 0
+
+[node name="BoxContainer" type="BoxContainer" parent="ExamplesVertical/ExamplesBoxContainerHorizontal"]
+custom_minimum_size = Vector2(32, 256)
+layout_mode = 1
+anchors_preset = -1
+offset_top = 32.0
+offset_right = 32.0
+offset_bottom = 40.0
+vertical = true
+
+[node name="ControlSquare" parent="ExamplesVertical/ExamplesBoxContainerHorizontal/BoxContainer" instance=ExtResource("2_nywc6")]
+layout_mode = 2
+
+[node name="ControlTall" parent="ExamplesVertical/ExamplesBoxContainerHorizontal/BoxContainer" instance=ExtResource("3_62cgn")]
+layout_mode = 2
+
+[node name="ControlWide" parent="ExamplesVertical/ExamplesBoxContainerHorizontal/BoxContainer" instance=ExtResource("5_r5gwn")]
+layout_mode = 2
+
+[node name="ExamplesBoxAspectContainerHorizontal" type="Control" parent="ExamplesVertical"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="BoxAspectContainerLabel" type="Label" parent="ExamplesVertical/ExamplesBoxAspectContainerHorizontal"]
+layout_mode = 1
+offset_right = 138.0
+offset_bottom = 23.0
+text = "BoxAspectContainer
+"
+label_settings = ExtResource("2_dj0v7")
+vertical_alignment = 2
+justification_flags = 0
+
+[node name="BoxAspectContainer" type="Container" parent="ExamplesVertical/ExamplesBoxAspectContainerHorizontal"]
+custom_minimum_size = Vector2(32, 256)
+layout_mode = 1
+anchors_preset = -1
+offset_top = 32.0
+offset_right = 32.0
+offset_bottom = 256.0
+script = ExtResource("1_sqube")
+Vertical = true
+BoxContainerThemeSeparation = true
+
+[node name="ControlSquare" parent="ExamplesVertical/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer" instance=ExtResource("2_nywc6")]
+layout_mode = 2
+
+[node name="ControlTall" parent="ExamplesVertical/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer" instance=ExtResource("3_62cgn")]
+layout_mode = 2
+
+[node name="ControlWide" parent="ExamplesVertical/ExamplesBoxAspectContainerHorizontal/BoxAspectContainer" instance=ExtResource("5_r5gwn")]
+layout_mode = 2

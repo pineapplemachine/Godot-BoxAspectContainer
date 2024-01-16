@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bvs8d8aocuj0y"]
+
+[node name="ControlWide" type="ColorRect"]
+clip_contents = true
+custom_minimum_size = Vector2(16, 8)
+offset_right = 16.0
+offset_bottom = 8.0

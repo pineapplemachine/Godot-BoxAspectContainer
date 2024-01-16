@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dwgw4oesxklh5"]
+
+[node name="ControlTall" type="ColorRect"]
+custom_minimum_size = Vector2(8, 16)
+offset_right = 8.0
+offset_bottom = 16.0
