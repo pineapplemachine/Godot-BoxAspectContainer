@@ -4,6 +4,8 @@ BoxAspectContainer is a Godot plugin implementing a custom Container class. It i
 
 In this documentation, the **Flow** axis of the BoxAspectContainer refers to the axis that child controls are laid out in a line on, i.e. the X axis when the container's Vertical flag is false or the Y axis when it's true. The **Fit** axis refers to the opposite axis, upon which controls are aligned or sized to fit, i.e. the Y axis when the container's Vertical flag is false or the X axis when it's true.
 
+![Example project screenshot](https://github.com/pineapplemachine/Godot-BoxAspectContainer/blob/master/example/Screenshots/Screenshot.png?raw=true)
+
 ## Usage
 
 To use BoxAspectContainer in your Godot project, clone or download this repository and copy the contents of its `addons/` subdirectory into your Godot project's own `addons/` subdirectory.
