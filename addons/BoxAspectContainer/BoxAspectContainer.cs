@@ -234,17 +234,17 @@ public partial class BoxAspectContainer : Container {
      * LayoutHiddenControls flag is true.
      */
     public IEnumerable<Control> GetControls() {
-        IEnumerable<Node> child_nodes = (
+        IEnumerable<Node> childNodes = (
             this.Reverse ?
             ((IEnumerable<Node>) this.GetChildren()).Reverse() :
             this.GetChildren()
         );
-        foreach(Node child_node in child_nodes) {
-            if(child_node is Control child_control) {
-                if(!child_control.Visible && !this.LayoutHiddenControls) {
+        foreach(Node childNode in childNodes) {
+            if(childNode is Control childControl) {
+                if(!childControl.Visible && !this.LayoutHiddenControls) {
                     continue;
                 }
-                yield return child_control;
+                yield return childControl;
             }
         }
     }
@@ -254,63 +254,63 @@ public partial class BoxAspectContainer : Container {
      * the container's layout settings.
      */
     public void Resort() {
-        Vector2 inner_margin = this.get_inner_margin();
-        Vector2 this_size_less_margin = this.Size - (2 * inner_margin);
-        float this_size_flow = this.get_flow_axis(this_size_less_margin);
-        float this_size_fit = this.get_fit_axis(this_size_less_margin);
-        float sep_size = this.get_separation_size(this_size_fit);
-        float child_stretch_ratio_sum = 0.0f;
-        float child_offset = 0.0f;
-        bool first_child_control = true;
+        Vector2 innerMargin = this.getInnerMargin();
+        Vector2 thisSizeLessMargin = this.Size - (2 * innerMargin);
+        float thisSizeFlow = this.getFlowAxis(thisSizeLessMargin);
+        float thisSizeFit = this.getFitAxis(thisSizeLessMargin);
+        float sepSize = this.getSeparationSize(thisSizeFit);
+        float childStretchRatioSum = 0.0f;
+        float childOffset = 0.0f;
+        bool firstChildControl = true;
         // Initially scale and set position of each child control.
-        foreach(Control child_control in this.GetControls()) {
-            if(first_child_control) {
-                first_child_control = false;
+        foreach(Control childControl in this.GetControls()) {
+            if(firstChildControl) {
+                firstChildControl = false;
             }
             else {
-                child_offset += sep_size;
+                childOffset += sepSize;
             }
             if(this.OverrideRotation) {
-                child_control.Rotation = 0;
+                childControl.Rotation = 0;
             }
             if(this.OverrideScale) {
-                child_control.Scale = Vector2.One;
+                childControl.Scale = Vector2.One;
             }
-            child_control.Position = (
-                inner_margin +
-                this.get_flow_vector(child_offset)
+            childControl.Position = (
+                innerMargin +
+                this.getFlowVector(childOffset)
             );
-            this.fit_control(child_control, this_size_fit);
-            child_offset += this.get_flow_axis(child_control.Size);
-            if(this.get_control_size_flags_flow(child_control) is
+            this.fitControl(childControl, thisSizeFit);
+            childOffset += this.getFlowAxis(childControl.Size);
+            if(this.getControlSizeFlagsFlow(childControl) is
                 SizeFlags.Expand or SizeFlags.ExpandFill
             ) {
-                child_stretch_ratio_sum += Mathf.Max(
-                    0.0f, child_control.SizeFlagsStretchRatio
+                childStretchRatioSum += Mathf.Max(
+                    0.0f, childControl.SizeFlagsStretchRatio
                 );
             }
         }
         // Finalize layout when children fit within the container
         // along its flow axis.
-        if(child_offset <= this_size_flow) {
-            if(child_stretch_ratio_sum > 0.0f) {
-                this.apply_flow_axis_expand(
-                    child_offset,
-                    this_size_flow,
-                    child_stretch_ratio_sum
+        if(childOffset <= thisSizeFlow) {
+            if(childStretchRatioSum > 0.0f) {
+                this.applyFlowAxisExpand(
+                    childOffset,
+                    thisSizeFlow,
+                    childStretchRatioSum
                 );
             }
             else if(this.ExpandToFit) {
-                this.scale_controls_to_fit(
-                    child_offset,
-                    this_size_flow,
-                    this_size_fit
+                this.scaleControlsToFit(
+                    childOffset,
+                    thisSizeFlow,
+                    thisSizeFit
                 );
             }
             else {
-                this.apply_flow_axis_alignment(
-                    child_offset,
-                    this_size_flow
+                this.applyFlowAxisAlignment(
+                    childOffset,
+                    thisSizeFlow
                 );
             }
         }
@@ -318,16 +318,16 @@ public partial class BoxAspectContainer : Container {
         // size along its flow axis.
         else {
             if(this.ShrinkToFit) {
-                this.scale_controls_to_fit(
-                    child_offset,
-                    this_size_flow,
-                    this_size_fit
+                this.scaleControlsToFit(
+                    childOffset,
+                    thisSizeFlow,
+                    thisSizeFit
                 );
             }
             else {
-                this.apply_flow_axis_alignment(
-                    child_offset,
-                    this_size_flow
+                this.applyFlowAxisAlignment(
+                    childOffset,
+                    thisSizeFlow
                 );
             }
         }
@@ -338,7 +338,7 @@ public partial class BoxAspectContainer : Container {
      * when vertical.
      * Child controls flow along this axis.
      */
-    private float get_flow_axis(Vector2 vector) {
+    private float getFlowAxis(Vector2 vector) {
         return this.Vertical ? vector.Y : vector.X;
     }
     
@@ -348,7 +348,7 @@ public partial class BoxAspectContainer : Container {
      * Child controls are aligned or scaled to fit the
      * container on this axis.
      */
-    private float get_fit_axis(Vector2 vector) {
+    private float getFitAxis(Vector2 vector) {
         return this.Vertical ? vector.X : vector.Y;
     }
     
@@ -356,7 +356,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to assign X or width when horizontal, Y or height
      * when vertical.
      */
-    private Vector2 set_flow_axis(Vector2 vector, float value) {
+    private Vector2 setFlowAxis(Vector2 vector, float value) {
         return (
             this.Vertical ?
             new Vector2(vector.X, value) :
@@ -368,7 +368,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to assign Y or height when horizontal, X or width
      * when vertical.
      */
-    private Vector2 set_fit_axis(Vector2 vector, float value) {
+    private Vector2 setFitAxis(Vector2 vector, float value) {
         return (
             this.Vertical ?
             new Vector2(value, vector.Y) :
@@ -380,7 +380,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to scale X or width when horizontal, Y or height
      * when vertical.
      */
-    private Vector2 scale_flow_axis(Vector2 vector, float value) {
+    private Vector2 scaleFlowAxis(Vector2 vector, float value) {
         return (
             this.Vertical ?
             new Vector2(vector.X, vector.Y * value) :
@@ -392,7 +392,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to scale Y or height when horizontal, X or width
      * when vertical.
      */
-    private Vector2 scale_fit_axis(Vector2 vector, float value) {
+    private Vector2 scaleFitAxis(Vector2 vector, float value) {
         return (
             this.Vertical ?
             new Vector2(vector.X * value, vector.Y) :
@@ -404,7 +404,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to get a horizontal when horizontal,
      * a vertical vector when vertical.
      */
-    private Vector2 get_flow_vector() {
+    private Vector2 getFlowVector() {
         return this.Vertical ? Vector2.Down : Vector2.Right;
     }
     
@@ -412,7 +412,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to get a horizontal when horizontal,
      * a vertical vector when vertical.
      */
-    private Vector2 get_flow_vector(float scale) {
+    private Vector2 getFlowVector(float scale) {
         return (
             this.Vertical ?
             new Vector2(0.0f, scale) :
@@ -424,7 +424,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to get a vertical when horizontal,
      * a horizontal vector when vertical.
      */
-    private Vector2 get_fit_vector() {
+    private Vector2 getFitVector() {
         return this.Vertical ? Vector2.Right : Vector2.Down;
     }
     
@@ -432,7 +432,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to get a vertical when horizontal,
      * a horizontal vector when vertical.
      */
-    private Vector2 get_fit_vector(float scale) {
+    private Vector2 getFitVector(float scale) {
         return (
             this.Vertical ?
             new Vector2(scale, 0.0f) :
@@ -444,7 +444,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to get a control's SizeFlags along the axis
      * that child controls flow.
      */
-    private SizeFlags get_control_size_flags_flow(Control control) {
+    private SizeFlags getControlSizeFlagsFlow(Control control) {
         return (
             this.Vertical ?
             control.SizeFlagsVertical :
@@ -456,7 +456,7 @@ public partial class BoxAspectContainer : Container {
      * Helper to get a control's SizeFlags along the axis
      * that child controls are aligned or scaled to fit.
      */
-    private SizeFlags get_control_size_flags_fit(Control control) {
+    private SizeFlags getControlSizeFlagsFit(Control control) {
         return (
             this.Vertical ?
             control.SizeFlagsHorizontal :
@@ -464,22 +464,22 @@ public partial class BoxAspectContainer : Container {
         );
     }
     
-    private Vector2 get_inner_margin() {
-        float proportional_axis = (
+    private Vector2 getInnerMargin() {
+        float proportionalAxis = (
             this.Vertical ?
             this.Size.X :
             this.Size.Y
         );
         return (
             this.InnerMarginPixels +
-            (proportional_axis * this.InnerMarginProportional)
+            (proportionalAxis * this.InnerMarginProportional)
         );
     }
     
-    private float get_separation_size(float this_size_fit) {
+    private float getSeparationSize(float thisSizeFit) {
         return (
             this.ControlSeparationPixels +
-            (this_size_fit * this.ControlSeparationProportional) +
+            (thisSizeFit * this.ControlSeparationProportional) +
             this.GetThemeConstant("separation") +
             (
                 this.BoxContainerThemeSeparation ?
@@ -489,109 +489,109 @@ public partial class BoxAspectContainer : Container {
         );
     }
     
-    private void fit_control(Control child_control, float this_size_fit) {
-        var flags = this.get_control_size_flags_fit(child_control);
+    private void fitControl(Control childControl, float thisSizeFit) {
+        var flags = this.getControlSizeFlagsFit(childControl);
         if((flags & SizeFlags.Expand) != 0) {
-            this.fit_control_expand(child_control, this_size_fit);
+            this.fitControlExpand(childControl, thisSizeFit);
         }
         else if((flags & SizeFlags.Fill) != 0) {
-            this.fit_control_fill(child_control, this_size_fit);
+            this.fitControlFill(childControl, thisSizeFit);
         }
         else if((flags & SizeFlags.ShrinkEnd) == SizeFlags.ShrinkEnd) {
-            this.fit_control_shrink_end(child_control, this_size_fit);
+            this.fitControlShrinkEnd(childControl, thisSizeFit);
         }
         else if((flags & SizeFlags.ShrinkCenter) == SizeFlags.ShrinkCenter) {
-            this.fit_control_shrink_center(child_control, this_size_fit);
+            this.fitControlShrinkCenter(childControl, thisSizeFit);
         }
         else {
             // Treat as ShrinkBegin
-            this.fit_control_shrink_begin(child_control, this_size_fit);
+            this.fitControlShrinkBegin(childControl, thisSizeFit);
         }
     }
     
-    private void fit_align_control(Control child_control, float this_size_fit) {
-        var flags = this.get_control_size_flags_fit(child_control);
+    private void fitAlignControl(Control childControl, float thisSizeFit) {
+        var flags = this.getControlSizeFlagsFit(childControl);
         if((flags & SizeFlags.ShrinkEnd) == SizeFlags.ShrinkEnd) {
-            this.fit_control_align_end(child_control, this_size_fit);
+            this.fitControlAlignEnd(childControl, thisSizeFit);
         }
         else if((flags & SizeFlags.ShrinkCenter) == SizeFlags.ShrinkCenter) {
-            this.fit_control_align_center(child_control, this_size_fit);
+            this.fitControlAlignCenter(childControl, thisSizeFit);
         }
         else {
             // All other flags align to position 0
-            this.fit_control_align_begin(child_control);
+            this.fitControlAlignBegin(childControl);
         }
     }
     
-    private void fit_control_fill(Control child_control, float this_size_fit) {
-        Vector2 child_size_min = child_control.GetCombinedMinimumSize();
-        float child_size_fit = this.get_fit_axis(child_size_min);
-        float child_scale = this_size_fit / child_size_fit;
-        Vector2 child_size = child_scale * child_size_min;
-        child_control.Size = child_size;
+    private void fitControlFill(Control childControl, float thisSizeFit) {
+        Vector2 childSizeMin = childControl.GetCombinedMinimumSize();
+        float childSizeFit = this.getFitAxis(childSizeMin);
+        float childScale = thisSizeFit / childSizeFit;
+        Vector2 childSize = childScale * childSizeMin;
+        childControl.Size = childSize;
     }
     
-    private void fit_control_expand(Control child_control, float this_size_fit) {
-        Vector2 child_size_min = child_control.GetCombinedMinimumSize();
-        child_control.Size = this.set_fit_axis(child_size_min, this_size_fit);
+    private void fitControlExpand(Control childControl, float thisSizeFit) {
+        Vector2 childSizeMin = childControl.GetCombinedMinimumSize();
+        childControl.Size = this.setFitAxis(childSizeMin, thisSizeFit);
     }
     
-    private void fit_control_shrink_begin(Control child_control, float this_size_fit) {
-        this.fit_control_shrink(child_control, this_size_fit);
-        this.fit_control_align_begin(child_control);
+    private void fitControlShrinkBegin(Control childControl, float thisSizeFit) {
+        this.fitControlShrink(childControl, thisSizeFit);
+        this.fitControlAlignBegin(childControl);
     }
     
-    private void fit_control_shrink_end(Control child_control, float this_size_fit) {
-        this.fit_control_shrink(child_control, this_size_fit);
-        this.fit_control_align_end(child_control, this_size_fit);
+    private void fitControlShrinkEnd(Control childControl, float thisSizeFit) {
+        this.fitControlShrink(childControl, thisSizeFit);
+        this.fitControlAlignEnd(childControl, thisSizeFit);
     }
     
-    private void fit_control_shrink_center(Control child_control, float this_size_fit) {
-        this.fit_control_shrink(child_control, this_size_fit);
-        this.fit_control_align_center(child_control, this_size_fit);
+    private void fitControlShrinkCenter(Control childControl, float thisSizeFit) {
+        this.fitControlShrink(childControl, thisSizeFit);
+        this.fitControlAlignCenter(childControl, thisSizeFit);
     }
     
-    private void fit_control_align_begin(Control child_control) {
-        child_control.Position = this.set_fit_axis(child_control.Position, 0.0f);
+    private void fitControlAlignBegin(Control childControl) {
+        childControl.Position = this.setFitAxis(childControl.Position, 0.0f);
     }
     
-    private void fit_control_align_end(Control child_control, float this_size_fit) {
-        child_control.Position = this.set_fit_axis(
-            child_control.Position,
-            this_size_fit - this.get_fit_axis(child_control.Size)
+    private void fitControlAlignEnd(Control childControl, float thisSizeFit) {
+        childControl.Position = this.setFitAxis(
+            childControl.Position,
+            thisSizeFit - this.getFitAxis(childControl.Size)
         );
     }
     
-    private void fit_control_align_center(Control child_control, float this_size_fit) {
-        child_control.Position = this.set_fit_axis(
-            child_control.Position,
-            0.5f * (this_size_fit - this.get_fit_axis(child_control.Size))
+    private void fitControlAlignCenter(Control childControl, float thisSizeFit) {
+        childControl.Position = this.setFitAxis(
+            childControl.Position,
+            0.5f * (thisSizeFit - this.getFitAxis(childControl.Size))
         );
     }
     
-    private void fit_control_shrink(Control child_control, float this_size_fit) {
-        Vector2 child_size_min = child_control.GetCombinedMinimumSize();
-        float child_size_fit = this.get_fit_axis(child_size_min);
-        float child_scale = Mathf.Min(1.0f, this_size_fit / child_size_fit);
-        Vector2 child_size = child_scale * child_size_min;
-        child_control.SetSize(child_size);
+    private void fitControlShrink(Control childControl, float thisSizeFit) {
+        Vector2 childSizeMin = childControl.GetCombinedMinimumSize();
+        float childSizeFit = this.getFitAxis(childSizeMin);
+        float childScale = Mathf.Min(1.0f, thisSizeFit / childSizeFit);
+        Vector2 childSize = childScale * childSizeMin;
+        childControl.SetSize(childSize);
     }
     
     /**
      * Helper to scale controls to fully fill the container's size
      * along the flow axis.
      */
-    private void scale_controls_to_fit(
-        float controls_size_flow,
-        float this_size_flow,
-        float this_size_fit
+    private void scaleControlsToFit(
+        float controlsSizeFlow,
+        float thisSizeFlow,
+        float thisSizeFit
     ) {
-        float scale = this_size_flow / controls_size_flow;
-        Vector2 pos_scale_vector = this.scale_flow_axis(Vector2.One, scale);
-        foreach(Control child_control in this.GetControls()) {
-            child_control.Size *= scale;
-            child_control.Position *= pos_scale_vector;
-            this.fit_align_control(child_control, this_size_fit);
+        float scale = thisSizeFlow / controlsSizeFlow;
+        Vector2 posScaleVector = this.scaleFlowAxis(Vector2.One, scale);
+        foreach(Control childControl in this.GetControls()) {
+            childControl.Size *= scale;
+            childControl.Position *= posScaleVector;
+            this.fitAlignControl(childControl, thisSizeFit);
         }
     }
     
@@ -600,51 +600,51 @@ public partial class BoxAspectContainer : Container {
      * along its flow axis and distributes it among those children with
      * an Expand flag set for its sizing along the flow axis.
      */
-    private void apply_flow_axis_expand(
-        float controls_size_flow,
-        float this_size_flow,
-        float child_stretch_ratio_sum
+    private void applyFlowAxisExpand(
+        float controlsSizeFlow,
+        float thisSizeFlow,
+        float childStretchRatioSum
     ) {
-        float flow_margin = this_size_flow - controls_size_flow;
-        Vector2 child_pos_add_vector = new Vector2(0.0f, 0.0f);
-        if(flow_margin <= 0.0f) {
+        float flowMargin = thisSizeFlow - controlsSizeFlow;
+        Vector2 childPosAddVector = new Vector2(0.0f, 0.0f);
+        if(flowMargin <= 0.0f) {
             return;
         }
-        foreach(Control child_control in this.GetControls()) {
-            var child_size_flags = (
-                this.get_control_size_flags_flow(child_control)
+        foreach(Control childControl in this.GetControls()) {
+            var childSizeFlags = (
+                this.getControlSizeFlagsFlow(childControl)
             );
-            child_control.Position += child_pos_add_vector;
-            if((child_size_flags & SizeFlags.Expand) != 0) {
-                float child_ratio = Mathf.Max(
-                    0.0f, child_control.SizeFlagsStretchRatio
+            childControl.Position += childPosAddVector;
+            if((childSizeFlags & SizeFlags.Expand) != 0) {
+                float childRatio = Mathf.Max(
+                    0.0f, childControl.SizeFlagsStretchRatio
                 );
-                float child_size_flow_add = (
-                    flow_margin * (child_ratio / child_stretch_ratio_sum)
+                float childSizeFlowAdd = (
+                    flowMargin * (childRatio / childStretchRatioSum)
                 );
-                Vector2 child_size_flow_add_vector = (
-                    this.get_flow_vector(child_size_flow_add)
+                Vector2 childSizeFlowAddVector = (
+                    this.getFlowVector(childSizeFlowAdd)
                 );
-                if((child_size_flags & SizeFlags.Fill) != 0) {
-                    child_control.Size += child_size_flow_add_vector;
+                if((childSizeFlags & SizeFlags.Fill) != 0) {
+                    childControl.Size += childSizeFlowAddVector;
                 }
-                child_pos_add_vector += child_size_flow_add_vector;
+                childPosAddVector += childSizeFlowAddVector;
             }
         }
     }
     
-    private void apply_flow_axis_alignment(float controls_size_flow, float this_size_flow) {
-        float child_offset_add = this.FlowAlignment switch {
-            BoxContainer.AlignmentMode.Center => 0.5f * (this_size_flow - controls_size_flow),
-            BoxContainer.AlignmentMode.End => this_size_flow - controls_size_flow,
+    private void applyFlowAxisAlignment(float controlsSizeFlow, float thisSizeFlow) {
+        float childOffsetAdd = this.FlowAlignment switch {
+            BoxContainer.AlignmentMode.Center => 0.5f * (thisSizeFlow - controlsSizeFlow),
+            BoxContainer.AlignmentMode.End => thisSizeFlow - controlsSizeFlow,
             _ => 0.0f,
         };
-        if(child_offset_add == 0.0f) {
+        if(childOffsetAdd == 0.0f) {
             return;
         }
-        Vector2 pos_add_vector = this.get_flow_vector(child_offset_add);
-        foreach(Control child_control in this.GetControls()) {
-            child_control.Position += pos_add_vector;
+        Vector2 posAddVector = this.getFlowVector(childOffsetAdd);
+        foreach(Control childControl in this.GetControls()) {
+            childControl.Position += posAddVector;
         }
     }
 }
