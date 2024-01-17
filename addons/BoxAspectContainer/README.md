@@ -2,6 +2,8 @@
 
 BoxAspectContainer is a Godot plugin implementing a custom Container class. It is similar to the built-in BoxContainer class, but it provides many more configuration options, and it allows preserving the aspect ratio of child controls when scaling them to fit.
 
+This addon can also be found in the [Godot Asset Library](https://godotengine.org/asset-library/asset/2518).
+
 ![Example project screenshot](https://github.com/pineapplemachine/Godot-BoxAspectContainer/blob/master/example/Screenshots/Screenshot.png?raw=true)
 
 In this documentation, the **Flow** axis of the BoxAspectContainer refers to the axis that child controls are laid out in a line on, i.e. the X axis when the container's Vertical flag is false or the Y axis when it's true. The **Fit** axis refers to the opposite axis, upon which controls are aligned or sized to fit, i.e. the Y axis when the container's Vertical flag is false or the X axis when it's true.
@@ -9,6 +11,10 @@ In this documentation, the **Flow** axis of the BoxAspectContainer refers to the
 ## Usage
 
 To use BoxAspectContainer in your Godot project, clone or download this repository and copy the contents of its `addons/` subdirectory into your Godot project's own `addons/` subdirectory.
+
+Alternatively, you can use Godot's AssetLib tool to search for the BoxAspectContainer asset and add it to your project via the editor.
+
+![AssetLib search screenshot](https://github.com/pineapplemachine/Godot-BoxAspectContainer/blob/master/example/Screenshots/AssetLib.png?raw=true)
 
 Note that this container class is implemented in C#. This means that you will need to use Godot with C# enabled (i.e. using the Mono build of the engine). It also means, due to current limitations of the C# API, that the class and its properties will not have descriptions in the editor. You can refer to this readme or to the commented source code in `addons/BoxAspectContainer/BoxAspectContainer.cs` for detailed descriptions of the class and its attributes.
 
